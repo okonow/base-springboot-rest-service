@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class CitizenDTO {
 
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
 }

@@ -20,29 +20,31 @@ import java.util.Date;
 public class Citizen {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private Date birth_date;
+    private Date birthDate;
 
-    private Integer extra_phone;
-
-    @NotNull(message="Это поле должно быть заполнено")
-    private String first_name;
-
-    private String middle_name;
+    private Integer extraPhone;
 
     @NotNull(message="Это поле должно быть заполнено")
-    private String last_name;
+    private String firstName;
 
+    private String middleName;
+
+    @NotNull(message="Это поле должно быть заполнено")
+    private String lastName;
+
+    /*
     @NotNull(message="Это поле должно быть заполнено")
     @Size( min = 4, max = 4,  message="Количество символов должно быть равно 4")
-    private Integer dul_serie;
+    private Integer dulSerie;
 
     @NotNull(message="Это поле должно быть заполнено")
     @Size( min = 6, max = 6,  message="Количество символов должно быть равно 6")
-    private Integer dul_number;
+    private Integer dulNumber;
 
     @NotNull(message="Это поле должно быть заполнено")
     private Integer phone;
+    */
+
 }

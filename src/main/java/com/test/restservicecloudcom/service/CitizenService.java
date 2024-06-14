@@ -4,8 +4,10 @@ package com.test.restservicecloudcom.service;
 import com.test.restservicecloudcom.dto.CitizenDTO;
 import com.test.restservicecloudcom.entity.Citizen;
 import com.test.restservicecloudcom.repository.CitizenRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,10 +21,15 @@ public class CitizenService {
 
     private final CitizenRepository citizenRepository;
 
+    @Transactional
     public Citizen create(CitizenDTO dto) {
+        //Long maxId = citizenRepository.findMaxId();
+        //Long newId = (maxId == null) ? 1 : maxId + 1;
+
         Citizen citizen = Citizen.builder()
-                .first_name(dto.getFirst_name())
-                .last_name(dto.getLast_name())
+                .id(2L)
+                .firstName(dto.getFirstName())
+                .lastName(dto.getLastName())
                 .build();
         return citizenRepository.save(citizen);
     }
@@ -46,8 +53,8 @@ public class CitizenService {
     public Citizen update(Long id, CitizenDTO dto) {
         Citizen citizen = citizenRepository.findById(id).orElse(null);
         citizen = Citizen.builder()
-                .first_name(dto.getFirst_name())
-                .last_name(dto.getLast_name())
+                .firstName(dto.getFirstName())
+                .lastName(dto.getLastName())
                 .build();
 
 

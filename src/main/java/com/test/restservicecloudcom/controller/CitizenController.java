@@ -19,9 +19,13 @@ public class CitizenController {
     private final CitizenService citizenService;
 
     @PostMapping
-    public ResponseEntity<Citizen> createCitizen(@RequestBody CitizenDTO dto) {
-
-        return new ResponseEntity<>(citizenService.create(dto), HttpStatus.CREATED);
+    public ResponseEntity<?> createCitizen(@RequestBody CitizenDTO dto) {
+        try {
+            Citizen citizen = citizenService.create(dto);
+            return new ResponseEntity<>(citizen, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Ошибка при создании гражданина: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping
@@ -29,18 +33,18 @@ public class CitizenController {
         return new ResponseEntity<>(citizenService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping({"/id"})
-    public ResponseEntity<Citizen> getCitizen(Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Citizen> getCitizen(@PathVariable Long id) {
         return new ResponseEntity<>(citizenService.findById(id), HttpStatus.OK);
     }
 
 
-    @PutMapping({"/id"})
-    public ResponseEntity<Citizen> updateCitizen(Long id, @RequestBody CitizenDTO dto) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Citizen> updateCitizen(@PathVariable Long id, @RequestBody CitizenDTO dto) {
         return new ResponseEntity<>(citizenService.update(id, dto), HttpStatus.OK);
     }
 
-    @DeleteMapping({"/id"})
+    @DeleteMapping("/{id}")
     public HttpStatus delete(@PathVariable Long id) {
         citizenService.delete(id);
         return HttpStatus.NO_CONTENT;
