@@ -1,28 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import img from "../../assets/cloud.png";
 import { useNavigate } from 'react-router-dom';
 import { Citizens } from '../Citizens/Citizens';
 import {MonthGraph, YearGraph, AgeGraph } from "./tabs"
 import '@mantine/charts/styles.css';
+import { sendGetRequest, sendGetRequestWithId } from '../requests/get';
 
 const { Header, Content, Footer } = Layout;
 
-const items = new Array(2).fill(null).map((_, index) => ({
-    key: index + 1,
-    label: `nav ${index + 1}`,
-  }));
+interface MenuItem {
+  key: number;
+  label: string;
+  onClick?: () => void;
+}
 
-  items[0].label = "Main";
-  items[1].label = "Citizens";
 
+
+  
 
 
 export const Main = () => {
 
+    const items: MenuItem[] = new Array(2).fill(null).map((_, index) => ({
+      key: index + 1,
+      label: `nav ${index + 1}`,
+    }));
+
+    
     const navigate = useNavigate();
     
     const gotoCitizens = () => navigate('/citizens');
+
+    items[0].label = "Main";
+    items[1].label = "Citizens";
+    items[1].onClick = gotoCitizens;
 
     const {
         token: { colorBgContainer, borderRadiusLG },
@@ -30,6 +42,10 @@ export const Main = () => {
     
 
       const [activeTab, setActiveTab] = useState('month');
+
+      
+
+
 
     const renderComponent = () => {
     switch (activeTab) {

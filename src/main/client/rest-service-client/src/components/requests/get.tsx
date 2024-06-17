@@ -3,8 +3,7 @@ export const sendGetRequest = async (url: string) => {
         const response = await fetch(url, {
             method: 'GET',
             credentials: 'include',
-            headers: {
-            }
+            
         });
         
         if (response.ok) {
@@ -28,7 +27,9 @@ export const sendGetRequestWithId = async (url: string, id: string) => {
         });
         
         if (response.ok) {
+            
             return await response.json();
+
         } else {
             throw new Error('Ошибка при выполнении запроса');
         }
